@@ -1,0 +1,243 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:8889
+-- Generation Time: Jan 08, 2020 at 11:28 AM
+-- Server version: 5.7.26
+-- PHP Version: 7.3.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `Automation`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `AccountAccess`
+--
+
+CREATE TABLE `AccountAccess` (
+  `accessId` bigint(20) NOT NULL,
+  `accountNumber` varchar(100) NOT NULL,
+  `userId` bigint(20) NOT NULL,
+  `isApproved` int(11) NOT NULL,
+  `adminId` bigint(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `AccountDetails`
+--
+
+CREATE TABLE `AccountDetails` (
+  `accountDetailsId` bigint(20) NOT NULL,
+  `accountNumber` varchar(50) NOT NULL,
+  `udn` varchar(100) NOT NULL,
+  `roomName` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `GlobalConfig`
+--
+
+CREATE TABLE `GlobalConfig` (
+  `configId` bigint(20) NOT NULL,
+  `configName` varchar(100) NOT NULL,
+  `configValue` varchar(2000) NOT NULL,
+  `version` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `GlobalConfig`
+--
+
+INSERT INTO `GlobalConfig` (`configId`, `configName`, `configValue`, `version`) VALUES
+(1, 'modelDetails', '[{\"modelId\":11,\"modelName\":\"JJThompson 11\",\"modelType\":\"3 Switch\"},{\"modelId\":12,\"modelName\":\"JJThompson 12\",\"modelType\":\"5 Switch\"}]', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ModelDetails`
+--
+
+CREATE TABLE `ModelDetails` (
+  `modelId` bigint(20) NOT NULL,
+  `modelCode` varchar(10) NOT NULL,
+  `switchCode` varchar(20) NOT NULL,
+  `switchName` varchar(100) NOT NULL,
+  `switchType` varchar(100) NOT NULL,
+  `other` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SwitchStatusDetails`
+--
+
+CREATE TABLE `SwitchStatusDetails` (
+  `statusId` bigint(20) NOT NULL,
+  `udnNumber` varchar(30) NOT NULL,
+  `switchCode` varchar(40) NOT NULL,
+  `currentStatus` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SystemInfo`
+--
+
+CREATE TABLE `SystemInfo` (
+  `id` int(11) NOT NULL,
+  `mode` varchar(20) NOT NULL,
+  `port` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `SystemInfo`
+--
+
+INSERT INTO `SystemInfo` (`id`, `mode`, `port`) VALUES
+(1, 'admin', '1889');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UDNModelDetails`
+--
+
+CREATE TABLE `UDNModelDetails` (
+  `id` bigint(20) NOT NULL,
+  `udnCode` varchar(2) NOT NULL,
+  `modelCode` varchar(50) NOT NULL,
+  `modelName` varchar(100) NOT NULL,
+  `modelType` varchar(50) NOT NULL,
+  `modelDetails` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `UserMaster`
+--
+
+CREATE TABLE `UserMaster` (
+  `userId` bigint(20) NOT NULL,
+  `mobileNumber` varchar(20) NOT NULL,
+  `fullName` varchar(200) DEFAULT NULL,
+  `emailId` varchar(100) DEFAULT NULL,
+  `ssid` varchar(100) DEFAULT NULL,
+  `wifiPassword` varchar(500) DEFAULT NULL,
+  `isEmailVerified` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `AccountAccess`
+--
+ALTER TABLE `AccountAccess`
+  ADD PRIMARY KEY (`accessId`),
+  ADD KEY `userId` (`userId`);
+
+--
+-- Indexes for table `AccountDetails`
+--
+ALTER TABLE `AccountDetails`
+  ADD PRIMARY KEY (`accountDetailsId`);
+
+--
+-- Indexes for table `GlobalConfig`
+--
+ALTER TABLE `GlobalConfig`
+  ADD PRIMARY KEY (`configId`);
+
+--
+-- Indexes for table `ModelDetails`
+--
+ALTER TABLE `ModelDetails`
+  ADD PRIMARY KEY (`modelId`);
+
+--
+-- Indexes for table `SwitchStatusDetails`
+--
+ALTER TABLE `SwitchStatusDetails`
+  ADD PRIMARY KEY (`statusId`);
+
+--
+-- Indexes for table `UDNModelDetails`
+--
+ALTER TABLE `UDNModelDetails`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `UserMaster`
+--
+ALTER TABLE `UserMaster`
+  ADD PRIMARY KEY (`userId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `AccountAccess`
+--
+ALTER TABLE `AccountAccess`
+  MODIFY `accessId` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `AccountDetails`
+--
+ALTER TABLE `AccountDetails`
+  MODIFY `accountDetailsId` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `GlobalConfig`
+--
+ALTER TABLE `GlobalConfig`
+  MODIFY `configId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `ModelDetails`
+--
+ALTER TABLE `ModelDetails`
+  MODIFY `modelId` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `SwitchStatusDetails`
+--
+ALTER TABLE `SwitchStatusDetails`
+  MODIFY `statusId` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `UDNModelDetails`
+--
+ALTER TABLE `UDNModelDetails`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `UserMaster`
+--
+ALTER TABLE `UserMaster`
+  MODIFY `userId` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `AccountAccess`
+--
+ALTER TABLE `AccountAccess`
+  ADD CONSTRAINT `accountaccess_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `UserMaster` (`userId`);
